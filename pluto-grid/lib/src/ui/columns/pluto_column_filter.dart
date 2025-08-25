@@ -892,7 +892,6 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
                             scrollbarTheme: const ScrollbarThemeData().copyWith(
                               thumbColor: MaterialStateProperty.all(const Color(0xFF959595)),
                               thickness: MaterialStateProperty.all(3),
-                              showTrackOnHover: true,
                               trackColor: MaterialStateProperty.all(const Color(0xFFE9E9E9)),
                             ),
                             hoverColor: Colors.transparent,

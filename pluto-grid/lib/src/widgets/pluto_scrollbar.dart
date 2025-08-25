@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 const double _kScrollbarMinLength = 36.0;
 const double _kScrollbarMinOverscrollLength = 8.0;
 const Duration _kScrollbarTimeToFade = Duration(milliseconds: 1200);
@@ -412,14 +413,15 @@ class PlutoGridCupertinoScrollbarState extends State<PlutoScrollbar>
         _currentAxis = Axis.vertical;
         _currentController = widget.verticalController;
         needUpdate = _needUpdatePainterByHover(Axis.vertical);
-        if (needUpdate) {
+        if (needUpdate && widget.verticalController?.hasClients == true) {
+          final pos = widget.verticalController!.position;
           metrics = FixedScrollMetrics(
-            minScrollExtent: widget.verticalController?.position.minScrollExtent ?? 0.0,
-            maxScrollExtent: widget.verticalController?.position.maxScrollExtent ?? 0.0,
-            pixels: widget.verticalController?.position.pixels ?? 0.0,
-            viewportDimension: widget.verticalController?.position.viewportDimension ?? 0.0,
-            axisDirection: widget.verticalController?.position.axisDirection ?? AxisDirection.down,
-            devicePixelRatio: MediaQuery.of(context).devicePixelRatio, // ✅ add this
+            minScrollExtent: pos.minScrollExtent,
+            maxScrollExtent: pos.maxScrollExtent,
+            pixels: pos.pixels,
+            viewportDimension: pos.viewportDimension,
+            axisDirection: pos.axisDirection,
+            devicePixelRatio: MediaQuery.of(context).devicePixelRatio,
           );
         }
         break;
@@ -427,14 +429,15 @@ class PlutoGridCupertinoScrollbarState extends State<PlutoScrollbar>
         _currentAxis = Axis.horizontal;
         _currentController = widget.horizontalController;
         needUpdate = _needUpdatePainterByHover(Axis.horizontal);
-        if (needUpdate) {
+        if (needUpdate && widget.horizontalController?.hasClients == true) {
+          final pos = widget.horizontalController!.position;
           metrics = FixedScrollMetrics(
-            minScrollExtent: widget.verticalController?.position.minScrollExtent ?? 0.0,
-            maxScrollExtent: widget.verticalController?.position.maxScrollExtent ?? 0.0,
-            pixels: widget.verticalController?.position.pixels ?? 0.0,
-            viewportDimension: widget.verticalController?.position.viewportDimension ?? 0.0,
-            axisDirection: widget.verticalController?.position.axisDirection ?? AxisDirection.down,
-            devicePixelRatio: MediaQuery.of(context).devicePixelRatio, // ✅ add this
+            minScrollExtent: pos.minScrollExtent,
+            maxScrollExtent: pos.maxScrollExtent,
+            pixels: pos.pixels,
+            viewportDimension: pos.viewportDimension,
+            axisDirection: pos.axisDirection,
+            devicePixelRatio: MediaQuery.of(context).devicePixelRatio,
           );
         }
         break;
