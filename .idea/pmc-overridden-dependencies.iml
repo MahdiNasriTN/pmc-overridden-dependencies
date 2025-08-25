@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/pluto-grid/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/pluto-grid/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pluto-grid/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/fl_chart/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/fl_chart/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/fl_chart/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_tree_view/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_tree_view/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_tree_view/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pluto-grid/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pluto-grid/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/pluto-grid/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/fl_chart/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/fl_chart/build" />
+      <excludeFolder url="file://$MODULE_DIR$/fl_chart/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/just-the-tooltip/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/just-the-tooltip/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/just-the-tooltip/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_simple_treeview/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_simple_treeview/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_simple_treeview/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_simple_treeview/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_simple_treeview/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_simple_treeview/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/aad_oauth/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/aad_oauth/build" />
+      <excludeFolder url="file://$MODULE_DIR$/aad_oauth/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/number-pagination/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/number-pagination/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/number-pagination/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/number-pagination/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/number-pagination/build" />
+      <excludeFolder url="file://$MODULE_DIR$/number-pagination/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_tree_view/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_tree_view/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_tree_view/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pmc_toast/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/pmc_toast/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/pmc_toast/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pmc_toast/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/pmc_toast/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/pmc_toast/example/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

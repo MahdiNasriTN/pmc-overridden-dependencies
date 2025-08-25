@@ -1,0 +1,24 @@
+name: example
+description: Example for the flutter_fancy_tree_view package.
+version: 1.0.0
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  faker:
+  flutter:
+    sdk: flutter
+  flutter_fancy_tree_view:
+    path: ../
+  path_drawing:
+  provider:
+
+dev_dependencies:
+  flutter_lints: ^2.0.1
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
