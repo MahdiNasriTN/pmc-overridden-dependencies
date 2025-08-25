@@ -414,15 +414,12 @@ class PlutoGridCupertinoScrollbarState extends State<PlutoScrollbar>
         needUpdate = _needUpdatePainterByHover(Axis.vertical);
         if (needUpdate) {
           metrics = FixedScrollMetrics(
-            minScrollExtent:
-                widget.verticalController?.position.minScrollExtent,
-            maxScrollExtent:
-                widget.verticalController?.position.maxScrollExtent,
-            pixels: widget.verticalController?.position.pixels,
-            viewportDimension:
-                widget.verticalController?.position.viewportDimension,
-            axisDirection: widget.verticalController?.position.axisDirection ??
-                AxisDirection.down,
+            minScrollExtent: widget.verticalController?.position.minScrollExtent ?? 0.0,
+            maxScrollExtent: widget.verticalController?.position.maxScrollExtent ?? 0.0,
+            pixels: widget.verticalController?.position.pixels ?? 0.0,
+            viewportDimension: widget.verticalController?.position.viewportDimension ?? 0.0,
+            axisDirection: widget.verticalController?.position.axisDirection ?? AxisDirection.down,
+            devicePixelRatio: MediaQuery.of(context).devicePixelRatio, // ✅ add this
           );
         }
         break;
@@ -432,16 +429,12 @@ class PlutoGridCupertinoScrollbarState extends State<PlutoScrollbar>
         needUpdate = _needUpdatePainterByHover(Axis.horizontal);
         if (needUpdate) {
           metrics = FixedScrollMetrics(
-            minScrollExtent:
-                widget.horizontalController?.position.minScrollExtent,
-            maxScrollExtent:
-                widget.horizontalController?.position.maxScrollExtent,
-            pixels: widget.horizontalController?.position.pixels,
-            viewportDimension:
-                widget.horizontalController?.position.viewportDimension,
-            axisDirection:
-                widget.horizontalController?.position.axisDirection ??
-                    AxisDirection.right,
+            minScrollExtent: widget.verticalController?.position.minScrollExtent ?? 0.0,
+            maxScrollExtent: widget.verticalController?.position.maxScrollExtent ?? 0.0,
+            pixels: widget.verticalController?.position.pixels ?? 0.0,
+            viewportDimension: widget.verticalController?.position.viewportDimension ?? 0.0,
+            axisDirection: widget.verticalController?.position.axisDirection ?? AxisDirection.down,
+            devicePixelRatio: MediaQuery.of(context).devicePixelRatio, // ✅ add this
           );
         }
         break;
