@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   equatable: ^2.0.3
-  intl: ^0.17.0
+  intl: ^0.20.2
 
 dev_dependencies:
   mockito: ^5.1.0
