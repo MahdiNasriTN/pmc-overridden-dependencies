@@ -29,7 +29,7 @@ class PlutoGridShortcut {
     required RawKeyboard state,
   }) {
     for (final action in actions.entries) {
-      if (action.key.accepts(keyEvent.event, HardwareKeyboard.instance)) {
+      if (action.key == keyEvent.event.logicalKey) {
         action.value.execute(keyEvent: keyEvent, stateManager: stateManager);
         return true;
       }
