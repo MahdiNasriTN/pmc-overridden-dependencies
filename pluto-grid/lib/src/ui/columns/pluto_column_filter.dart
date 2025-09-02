@@ -100,7 +100,7 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
       _activeFilters[columnField] = Set<String>();
     }
 
-    _focusNode = FocusNode(onKey: _handleOnKey);
+    _focusNode = FocusNode(onKeyEvent: _handleOnKey);
     widget.column.setFilterFocusNode(_focusNode);
     _event = stateManager.eventManager!.listener(_handleFocusFromRows);
 
@@ -632,7 +632,7 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
     stateManager.notifyListeners();
   }
 
-  KeyEventResult _handleOnKey(FocusNode node, RawKeyEvent event) {
+  KeyEventResult _handleOnKey(FocusNode node, KeyEvent event) {
     var keyManager = PlutoKeyManagerEvent(
       focusNode: node,
       event: event,
@@ -890,9 +890,9 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
                         child: Theme(
                           data: Theme.of(context).copyWith(
                             scrollbarTheme: const ScrollbarThemeData().copyWith(
-                              thumbColor: MaterialStateProperty.all(const Color(0xFF959595)),
-                              thickness: MaterialStateProperty.all(3),
-                              trackColor: MaterialStateProperty.all(const Color(0xFFE9E9E9)),
+                              thumbColor: WidgetStateProperty.all(const Color(0xFF959595)),
+                              thickness: WidgetStateProperty.all(3),
+                              trackColor: WidgetStateProperty.all(const Color(0xFFE9E9E9)),
                             ),
                             hoverColor: Colors.transparent,
                           ),
@@ -910,8 +910,8 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
                                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: Colors.white),
                                         scrollbarTheme: const ScrollbarThemeData(
                                           radius: Radius.circular(1.5),
-                                          thickness: MaterialStatePropertyAll(3),
-                                          thumbVisibility: MaterialStatePropertyAll(true),
+                                          thickness: WidgetStatePropertyAll(3),
+                                          thumbVisibility: WidgetStatePropertyAll(true),
                                         ),
                                       ),
                                       isExpanded: true,
@@ -986,7 +986,10 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
                                         width: 24,
                                         height: 12,
                                         fit: BoxFit.contain,
-                                        color: isfilterMenuOpen ? const Color(0xff045692) : const Color(0xFFC7C7C7),
+                                        colorFilter: ColorFilter.mode(
+                                          isfilterMenuOpen ? const Color(0xff045692) : const Color(0xFFC7C7C7),
+                                          BlendMode.srcIn,
+                                        ),
                                       )
                                           : _buildFilterIcon(),
                                       menuItemStyleData: const MenuItemStyleData(padding: EdgeInsets.zero),
@@ -1044,220 +1047,221 @@ class PlutoColumnFilterState extends PlutoStateWithChange<PlutoColumnFilter> {
                             final RenderBox overlayBox = overlay.context.findRenderObject() as RenderBox;
                             final Offset offset = button.localToGlobal(Offset.zero, ancestor: overlayBox);
 
-                            showMenu(
+                            showDialog(
                               context: context,
-                              color: Colors.transparent,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              position: RelativeRect.fromLTRB(
-                                offset.dx,
-                                offset.dy + button.size.height,
-                                overlayBox.size.width - offset.dx - button.size.width,
-                                offset.dy + button.size.height + 200,
-                              ),
-                              items: <PopupMenuEntry>[
-                                PopupMenuItem(
-                                  padding: EdgeInsets.zero,
-                                  child: StatefulBuilder(
-                                    builder: (context, setState) {
-                                      return Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                                        width: 280,
-                                        constraints: const BoxConstraints(maxHeight: 360),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(6),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black.withOpacity(0.05),
-                                              blurRadius: 10,
-                                              offset: const Offset(0, 3),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.filter_list,
-                                                      size: 14,
-                                                      color: const Color(0xff045692),
-                                                    ),
-                                                    SizedBox(width: 4),
-                                                    Text(
-                                                      'Filter ${widget.column.title}',
-                                                      style: style.cellTextStyle.copyWith(
-                                                        fontSize: 11,
-                                                        color: const Color(0xff045692),
+                              barrierDismissible: true,
+                              builder: (BuildContext context) {
+                                return Stack(
+                                  children: [
+                                    // Positioned dialog
+                                    Positioned(
+                                      left: offset.dx,
+                                      top: offset.dy + button.size.height,
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: StatefulBuilder(
+                                          builder: (context, setDialogState) {
+                                            return Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                              width: 280,
+                                              constraints: const BoxConstraints(maxHeight: 360),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.circular(6),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black.withOpacity(0.05),
+                                                    blurRadius: 10,
+                                                    offset: const Offset(0, 3),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.filter_list,
+                                                            size: 14,
+                                                            color: const Color(0xff045692),
+                                                          ),
+                                                          SizedBox(width: 4),
+                                                          Text(
+                                                            'Filter ${widget.column.title}',
+                                                            style: style.cellTextStyle.copyWith(
+                                                              fontSize: 11,
+                                                              color: const Color(0xff045692),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      IconButton(
+                                                        padding: EdgeInsets.zero,
+                                                        constraints: BoxConstraints(),
+                                                        icon: Icon(Icons.close, size: 14),
+                                                        onPressed: () => Navigator.pop(context),
+                                                        color: Colors.grey[400],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  Container(
+                                                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                                                    child: CheckboxListTile(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(3),
+                                                      ),
+                                                      visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+                                                      contentPadding: EdgeInsets.zero,
+                                                      checkColor: Colors.white,
+                                                      activeColor: const Color(0xff045692),
+                                                      side: BorderSide(color: Colors.grey[300]!),
+                                                      value: _selectAllChecked,
+                                                      onChanged: (value) {
+                                                        setDialogState(() {
+                                                          _selectAllChecked = value!;
+                                                          _handleSelectAllValues(value);
+                                                        });
+                                                      },
+                                                      title: Text(
+                                                        'Select All',
+                                                        style: style.cellTextStyle.copyWith(
+                                                          fontSize: 11,
+                                                          color: Colors.grey[600],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                                IconButton(
-                                                  padding: EdgeInsets.zero,
-                                                  constraints: BoxConstraints(),
-                                                  icon: Icon(Icons.close, size: 14),
-                                                  onPressed: () => Navigator.pop(context),
-                                                  color: Colors.grey[400],
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                                              child: CheckboxListTile(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(3),
-                                                ),
-                                                visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                                                contentPadding: EdgeInsets.zero,
-                                                checkColor: Colors.white,
-                                                activeColor: const Color(0xff045692),
-                                                side: BorderSide(color: Colors.grey[300]!),
-                                                value: _selectAllChecked,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    _selectAllChecked = value!;
-                                                    _handleSelectAllValues(value);
-                                                  });
-                                                },
-                                                title: Text(
-                                                  'Select All',
-                                                  style: style.cellTextStyle.copyWith(
-                                                    fontSize: 11,
-                                                    color: Colors.grey[600],
                                                   ),
-                                                ),
-                                              ),
-                                            ),
-                                            Divider(
-                                              height: 1,
-                                              thickness: 1,
-                                              color: Colors.grey[200],
-                                              indent: 2,
-                                              endIndent: 2,
-                                            ),
-                                            const SizedBox(height: 1),
+                                                  Divider(
+                                                    height: 1,
+                                                    thickness: 1,
+                                                    color: Colors.grey[200],
+                                                    indent: 2,
+                                                    endIndent: 2,
+                                                  ),
+                                                  const SizedBox(height: 1),
 
-                                            Flexible(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(4),
-                                                ),
-                                                child: RawScrollbar(
-                                                  controller: _scrollController,
-                                                  thumbColor: Colors.grey[350],
-                                                  radius: Radius.circular(3),
-                                                  thickness: 3,
-                                                  thumbVisibility: true,
-                                                  child: ListView.builder(
-                                                    controller: _scrollController,
-                                                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                                                    itemCount: _allValues.length,
-                                                    itemBuilder: (context, index) {
-                                                      final value = _allValues[index];
-                                                      return Container(
-                                                        constraints: BoxConstraints(minHeight: 24),
-                                                        margin: EdgeInsets.symmetric(vertical: 2),
-                                                        child: Material(
-                                                          color: Colors.transparent,
-                                                          child: Row(
-                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                            children: [
-
-                                                              Expanded(
-                                                                child: Padding(
-                                                                  padding: EdgeInsets.symmetric(vertical: 2),
-                                                                  child: Text(
-                                                                    value,
-                                                                    style: style.cellTextStyle.copyWith(
-                                                                      fontSize: 11,
-                                                                      color: Colors.grey[700],
-                                                                    ),
-                                                                    softWrap: true,
+                                                  Flexible(
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(4),
+                                                      ),
+                                                      child: Scrollbar(
+                                                        controller: _scrollController,
+                                                        thumbVisibility: true,
+                                                        thickness: 3,
+                                                        radius: Radius.circular(3),
+                                                        child: ListView.builder(
+                                                          controller: _scrollController,
+                                                          padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                                                          itemCount: _allValues.length,
+                                                          itemBuilder: (context, index) {
+                                                            final value = _allValues[index];
+                                                            return Container(
+                                                              constraints: BoxConstraints(minHeight: 24),
+                                                              margin: EdgeInsets.symmetric(vertical: 2),
+                                                              child: Material(
+                                                                color: Colors.transparent,
+                                                                child: InkWell(
+                                                                  onTap: () {
+                                                                    final isSelected = _selectedValues.contains(value == "Checked" ? "true" : value == "Unchecked" ? "false" : value);
+                                                                    setDialogState(() {
+                                                                      _handleValueSelection(value, !isSelected);
+                                                                    });
+                                                                  },
+                                                                  child: Row(
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child: Padding(
+                                                                          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                                                                          child: Text(
+                                                                            value,
+                                                                            style: style.cellTextStyle.copyWith(
+                                                                              fontSize: 11,
+                                                                              color: Colors.grey[700],
+                                                                            ),
+                                                                            softWrap: true,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(width: 4),
+                                                                      Transform.translate(
+                                                                        offset: Offset(-2, 0),
+                                                                        child: SizedBox(
+                                                                          width: 24,
+                                                                          height: 24,
+                                                                          child: Checkbox(
+                                                                            shape: RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(3),
+                                                                            ),
+                                                                            visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+                                                                            checkColor: Colors.white,
+                                                                            activeColor: const Color(0xff045692),
+                                                                            side: BorderSide(color: Colors.grey[300]!),
+                                                                            value: _selectedValues.contains(value == "Checked" ? "true" : value == "Unchecked" ? "false" : value),
+                                                                            onChanged: (selected) {
+                                                                              setDialogState(() {
+                                                                                _handleValueSelection(value, selected);
+                                                                              });
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(width: 4),
+                                                                    ],
                                                                   ),
                                                                 ),
                                                               ),
-                                                              SizedBox(width: 4),
-                                                              Transform.translate(
-                                                                offset: Offset(-2, 0),
-                                                                child: SizedBox(
-                                                                  width: 24,
-                                                                  height: 24,
-                                                                  child: Checkbox(
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius: BorderRadius.circular(3),
-                                                                    ),
-                                                                    visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                                                                    checkColor: Colors.white,
-                                                                    activeColor: const Color(0xff045692),
-                                                                    side: BorderSide(color: Colors.grey[300]!),
-                                                                    value: _selectedValues.contains(value == "Checked" ? "true" : value == "Unchecked" ? "false" : value),
-                                                                    onChanged: (selected) {
-                                                                      setState(() {
-                                                                        _handleValueSelection(value, selected);
-                                                                      });
-                                                                    },
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(width: 4),
-                                                            ],
-                                                          ),
+                                                            );
+                                                          },
                                                         ),
-                                                      );
-                                                    },
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
+                                                  const SizedBox(height: 6),
+                                                  Align(
+                                                    alignment: Alignment.centerRight,
+                                                    child: ElevatedButton.icon(
+                                                      onPressed: () {
+                                                        _resetFilter();
+                                                        Navigator.pop(context);
+                                                      },
+                                                      icon: Icon(Icons.refresh, size: 12),
+                                                      label: Text(
+                                                        'Reset Filter',
+                                                        style: style.cellTextStyle.copyWith(
+                                                          fontSize: 11,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor: const Color(0xff045692),
+                                                        foregroundColor: Colors.white,
+                                                        elevation: 0,
+                                                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(3),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                            const SizedBox(height: 6),
-                                            Align(
-                                              alignment: Alignment.centerRight,
-                                              child: ElevatedButton.icon(
-                                                onPressed: () {
-                                                  _resetFilter();
-                                                  Navigator.pop(context);
-                                                },
-                                                icon: Icon(Icons.refresh, size: 12),
-                                                label: Text(
-                                                  'Reset Filter',
-                                                  style: style.cellTextStyle.copyWith(
-                                                    fontSize: 11,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: const Color(0xff045692),
-                                                  foregroundColor: Colors.white,
-                                                  elevation: 0,
-                                                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(3),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                            );
+                                          },
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ).then((value) {
-                              setState(() {
-                                isfilterDataMenuOpen = false;
-                              });
-                            });
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           }
                         },
                       ),
