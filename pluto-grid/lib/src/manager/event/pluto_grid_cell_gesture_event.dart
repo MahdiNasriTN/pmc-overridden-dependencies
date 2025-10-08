@@ -70,6 +70,11 @@ class PlutoGridCellGestureEvent extends PlutoGridEvent {
     if (stateManager.isCurrentCell(cell) && stateManager.isEditing != true) {
       stateManager.setEditing(true);
     } else {
+      // Exit edit mode before selecting a different cell
+      if (stateManager.isEditing && !stateManager.isCurrentCell(cell)) {
+        stateManager.setEditing(false, notify: false);
+      }
+      
       if (isControlPressed) {
         _multiCellSelect(stateManager);
       } else {

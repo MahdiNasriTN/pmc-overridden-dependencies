@@ -112,6 +112,11 @@ mixin EditingState implements IPlutoGridState {
 
     _state._isEditing = flag;
 
+    // When exiting edit mode, also release focus to allow cell changes
+    if (!flag) {
+      setKeepFocus(false, notify: false);
+    }
+
     clearCurrentSelecting(notify: false);
 
     notifyListeners(notify, setEditing.hashCode);
