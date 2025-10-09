@@ -359,6 +359,13 @@ class PlutoGridActionDefaultEnterKey extends PlutoGridShortcutAction {
         _moveCell(keyEvent, stateManager);
 
         stateManager.setEditing(saveIsEditing, notify: false);
+        // If we're restoring edit mode after moving, ensure the grid keeps focus
+        // so the cell editor can request focus and accept typing immediately.
+        if (saveIsEditing == true) {
+          // Notify listeners so the grid rebuilds and the cell editor can
+          // request focus (TextCell checks keepFocus in build()).
+          stateManager.setKeepFocus(true, notify: true);
+        }
       } else {
         stateManager.toggleEditing(notify: false);
       }
@@ -366,6 +373,10 @@ class PlutoGridActionDefaultEnterKey extends PlutoGridShortcutAction {
 
     if (stateManager.autoEditing) {
       stateManager.setEditing(true, notify: false);
+      // Auto-editing means we should keep focus on the grid so the
+      // newly created editor gets keyboard focus.
+  // Notify listeners so the editor input receives focus immediately.
+  stateManager.setKeepFocus(true, notify: true);
     }
 
     stateManager.notifyListeners();
