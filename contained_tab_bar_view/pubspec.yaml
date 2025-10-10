@@ -1,0 +1,18 @@
+name: contained_tab_bar_view
+description: Encapsulates TabController, TabBar and TabBarView into a single customizable Widget.
+version: 0.8.0
+homepage: https://github.com/slovnicki/contained_tab_bar_view
+repository: https://github.com/slovnicki/contained_tab_bar_view
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  container_tab_indicator: ^0.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
